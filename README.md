@@ -4,7 +4,7 @@
 Companion code repository for [Machine Learning From Scratch](https://a.co/d/09IvzCP0).
 <br>
 
-<a href="https://a.co/d/09IvzCP0"><img height="400" alt="f" src="https://github.com/user-attachments/assets/959f72b8-fe4b-4f60-9f68-03722d7008e3" />
+<a href="https://a.co/d/09IvzCP0"><img height="480" alt="f" src="https://github.com/user-attachments/assets/f57946ec-b227-4fbd-86af-f0503b0f6f9d" />
 
 <br>
 
