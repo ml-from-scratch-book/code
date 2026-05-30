@@ -1,14 +1,14 @@
 # Machine Learning From Scratch
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
-Companion code repository for [Machine Learning From Scratch](https://a.co/d/09IvzCP0).
+Companion code repository for [Machine Learning From Scratch](https://a.co/d/089HhXLG).
 <br>
 
-<a href="https://a.co/d/09IvzCP0"><img height="480" alt="f" src="https://github.com/user-attachments/assets/f57946ec-b227-4fbd-86af-f0503b0f6f9d" />
+<a href="https://a.co/d/089HhXLG"><img height="480" alt="f" src="https://github.com/user-attachments/assets/f57946ec-b227-4fbd-86af-f0503b0f6f9d" />
 
 <br>
 
-[Machine Learning From Scratch](https://a.co/d/09IvzCP0) opens the "black box" behind `fit()` and `predict()`. Anyone with basic Python and high-school math can fully understand and build core ML algorithms from scratch via a 5-stage framework:
+[Machine Learning From Scratch](https://a.co/d/089HhXLG) opens the "black box" behind `fit()` and `predict()`. Anyone with basic Python and high-school math can fully understand and build core ML algorithms from scratch via a 5-stage framework:
 
 1. **Intuition**: Understand the plain-English human thinking behind the algorithm.
 2. **Formalization**: Translate that intuition into accessible mathematical form.
