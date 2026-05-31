@@ -16,8 +16,6 @@ Companion code repository for [Machine Learning From Scratch](https://a.co/d/01W
 4. **Test**: Validate your code on real data and compare it against industry-standard libraries.
 5. **Tips**: Learn practical strengths, weaknesses, and real-world usage insights.
 
-⭐️ If you find this repository and the book helpful, please consider giving this repo a star — thank you!
-
 ---
 
 ## Table of Contents
