@@ -1,5 +1,5 @@
 # Machine Learning From Scratch
-[![Amazon](https://img.shields.io/badge/Amazon-★★★★★-orange?style=flat&logo=amazon)](https://a.co/d/0a5dcIoG)
+[![Amazon](https://img.shields.io/badge/Amazon-★★★★★-FF9900?style=flat&logo=amazon)](https://a.co/d/0a5dcIoG)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 Companion code repository for [Machine Learning From Scratch](https://a.co/d/0a5dcIoG).
