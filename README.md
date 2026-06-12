@@ -6,7 +6,6 @@ Companion code repository for [Machine Learning From Scratch](https://a.co/d/0a5
 <br>
 
 <a href="https://a.co/d/0a5dcIoG"><img height="480" alt="f" src="https://github.com/user-attachments/assets/f57946ec-b227-4fbd-86af-f0503b0f6f9d" />
-
 <br>
 
 [Machine Learning From Scratch](https://a.co/d/0a5dcIoG) opens the "black box" behind `fit()` and `predict()`. Anyone with basic Python and high-school math can fully understand and build core ML algorithms from scratch via a 5-stage framework:
