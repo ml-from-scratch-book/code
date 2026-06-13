@@ -746,9 +746,9 @@ async function render(n) {
   
   if (window.innerWidth <= 600) {
     const unscaledVp = p.getViewport({ scale: 1.0 });
-    // We target 95% of the container width to keep it from hitting the edges
+    // Calculate width minus padding (32px) to ensure it fits perfectly
     const containerWidth = document.getElementById('pdf-canvas-wrap').clientWidth;
-    currentScale = (containerWidth * 0.95) / unscaledVp.width;
+    currentScale = (containerWidth - 32) / unscaledVp.width;
   }
 
   const vp = p.getViewport({ scale });
