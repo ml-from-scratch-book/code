@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine Learning From Scratch — Sample Chapters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --page:    #ffffff;
+  --ink:     #000000;
+  --ink2:    #333333;
+  --ink3:    #777777;
+  --rule:    #eeeeee;
+  --accent:  #004aad;
+  --bg-mute: #f8f9fa;
+  --mono:    'JetBrains Mono', monospace;
+  --serif:   'EB Garamond', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+}
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+}
+h1 span { font-weight: 400; }
+
+.byline {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--ink3);
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.intro {
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--ink2);
+  max-width: 580px;
+  margin-bottom: 2.5rem;
+}
+.intro code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  font-weight: 600;
+  background: var(--bg-mute);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+/* ── CTA ── */
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+.btn-read {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--page);
+  background: var(--ink);
+  padding: 0.9rem 2.2rem;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+.btn-read:hover { background: var(--accent); box-shadow: 0 4px 12px rgba(0,74,173,0.2); }
+
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  padding: 0.9rem 1.6rem;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+.btn-ghost:hover { background: var(--accent); color: var(--page); }
+.btn-ghost svg { transition: transform 0.2s ease; }
+.btn-ghost:hover svg { transform: translateX(2px); }
+
+.btn-amazon {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  background: #FF9900;
+  padding: 0.9rem 1.6rem;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.btn-amazon:hover {
+  background: #e68a00;
+  box-shadow: 0 4px 14px rgba(255,153,0,0.35);
+  transform: translateY(-1px);
+}
+.btn-amazon:active { transform: translateY(0); }
+.btn-amazon .amz-smile {
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── 5-STAGE FRAMEWORK ── */
+.framework-intro {
+  margin-bottom: 1.5rem;
+}
+.framework-intro-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.framework-intro-text {
+  font-size: 1rem;
+  color: var(--ink3);
+  line-height: 1.7;
+  max-width: 540px;
+}
+.framework-intro-text strong {
+  color: var(--ink2);
+  font-weight: 600;
+}
+
+.framework {
+  margin: 0 0 3rem;
+}
+
+.framework-nav {
+  display: flex;
+  border-bottom: 2px solid var(--rule);
+}
+
+.stage-tab {
+  flex: 1;
+  padding: 1rem 0.5rem 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.stage-tab:hover { background: var(--bg-mute); }
+
+.stage-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+}
+
+.stage-tab .tab-num {
+  display: block;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--rule);
+  margin-bottom: 0.4rem;
+  transition: color 0.2s ease;
+}
+.stage-tab.active .tab-num,
+.stage-tab:hover .tab-num { color: var(--accent); }
+
+.stage-tab .tab-name {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink3);
+  transition: color 0.2s ease;
+}
+.stage-tab.active .tab-name,
+.stage-tab:hover .tab-name { color: var(--ink); }
+
+.framework-body {
+  padding: 2rem 0 0.5rem;
+  min-height: 140px;
+}
+
+.stage-text {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--ink2);
+  display: none;
+  animation: fadein 0.25s ease;
+}
+.stage-text.visible { display: block; }
+.stage-text strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+.stage-text .mono-inline {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  font-weight: 600;
+  background: var(--bg-mute);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ── ALGORITHMS ── */
+.algo-section {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+.section-head-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+.section-head-stage {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.section-head-stage.visible { opacity: 1; }
+
+.algo-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  gap: 0;
+}
+
+.algo-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink2);
+  transition: color 0.15s ease;
+}
+.algo-item:hover { color: var(--ink); }
+.algo-item:nth-child(-n+5) { padding-right: 2rem; border-right: 1px solid var(--rule); }
+.algo-item:nth-child(n+6)  { padding-left: 2rem; }
+
+.algo-n {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  min-width: 22px;
+  flex-shrink: 0;
+}
+
+/* ── PDF VIEWER ── */
+.viewer-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 8rem;
+}
+
+.viewer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1rem;
+}
+.viewer-head-title {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+.viewer-head-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.pdf-wrap {
+  border: 1px solid var(--rule);
+  background: var(--page);
+  border-radius: 6px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+.pdf-wrap:fullscreen { width:100vw; height:100vh; border:none; border-radius:0; display:flex; flex-direction:column; }
+
+.pdf-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--page);
+  flex-wrap: wrap;
+}
+
+.pdf-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+  text-transform: uppercase;
+}
+.pdf-btn:hover:not(:disabled) { color: var(--accent); background: var(--bg-mute); }
+.pdf-btn:disabled { opacity: 0.25; cursor: default; }
+
+.pdf-page-info {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  min-width: 60px;
+  text-align: center;
+}
+
+.pdf-select {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink2);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  max-width: 180px;
+  transition: all 0.15s ease;
+}
+.pdf-select:hover { background: var(--bg-mute); }
+.pdf-select:focus { outline: none; }
+
+.pdf-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--rule);
+  flex-shrink: 0;
+}
+
+.pdf-spacer { flex: 1; }
+
+#pdf-canvas-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 2rem;
+  background: var(--bg-mute);
+  min-height: 550px;
+  max-height: 750px;
+  overflow-y: auto;
+  outline: none;
+}
+.pdf-wrap:fullscreen #pdf-canvas-wrap { flex:1; max-height:none; }
+
+#pdf-canvas {
+  display: block;
+  max-width: 100%;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.pdf-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink3);
+  letter-spacing: 0.08em;
+}
+.pdf-loading-bar {
+  width: 140px; height: 2px;
+  background: var(--rule);
+  position: relative; overflow: hidden; border-radius: 2px;
+}
+.pdf-loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -40%; width: 40%; height: 100%;
+  background: var(--accent);
+  animation: slide 1s ease-in-out infinite;
+}
+@keyframes slide { 0% { left:-40%; } 100% { left:100%; } }
+
+.pdf-hint {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--ink3);
+  letter-spacing: 0.08em;
+}
+.pdf-hint kbd {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  background: var(--bg-mute);
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  color: var(--ink2);
+}
+
+/* ── FOOTER ── */
+footer {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: center;
+}
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .algo-list { grid-template-columns:1fr; grid-template-rows:auto; grid-auto-flow:row; }
+  .algo-item:nth-child(-n+5),
+  .algo-item:nth-child(n+6) { padding-right:0; padding-left:0; border-right:none; }
+  .framework-nav { flex-wrap:wrap; }
+  .stage-tab { flex:none; width:50%; border-bottom:1px solid var(--rule); }
+  .stage-tab:nth-child(4),
+  .stage-tab:nth-child(5) { border-bottom:none; }
+  .pdf-spacer { display:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdf-loading-bar::after { animation:none; left:0; width:100%; opacity:0.4; }
+  @keyframes fadein { from { opacity:1; } }
+}
+</style>
+</head>
+<body>
+
+<main>
+<section class="hero">
+  <p class="kicker">Free sample chapters</p>
+
+  <h1>Machine Learning<br><span>From Scratch</span></h1>
+  <p class="byline">Intuition · Math · Code</p>
+
+  <p class="intro">
+    Most people stop at <code>fit()</code> and <code>predict()</code>, treating algorithms as black boxes.
+    This book opens every box — ten algorithms rebuilt from first principles, using plain English, accessible mathematics, and clean NumPy code.
+  </p>
+
+  <div class="cta-row">
+    <a href="#sample" class="btn-read">Read sample</a>
+    <a href="https://a.co/d/06KcmMkN" class="btn-amazon" target="_blank" rel="noopener">
+      <!-- Amazon smile arrow as inline SVG -->
+      <svg class="amz-smile" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2.5 15.5C6.5 19.5 12.5 21 18.5 18.5C19.5 18 21 17 21.5 16" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 14.5L21.5 16L19.5 19" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Buy on Amazon
+    </a>
+    <a href="https://github.com/ml-from-scratch-book/code" class="btn-ghost" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      Companion code
+    </a>
+  </div>
+
+  <!-- FRAMEWORK INTRO -->
+  <div class="framework-intro">
+    <p class="framework-intro-label">The 5-stage framework</p>
+    <p class="framework-intro-text">
+      Every algorithm in this book follows the same five stages, in the same order — every time.
+      Click any stage to see what it means in practice.
+    </p>
+  </div>
+
+  <!-- 5-STAGE FRAMEWORK -->
+  <div class="framework">
+    <nav class="framework-nav" aria-label="Algorithm stages">
+      <button class="stage-tab active" data-stage="0">
+        <span class="tab-num">I</span>
+        <span class="tab-name">Intuition</span>
+      </button>
+      <button class="stage-tab" data-stage="1">
+        <span class="tab-num">II</span>
+        <span class="tab-name">Math</span>
+      </button>
+      <button class="stage-tab" data-stage="2">
+        <span class="tab-num">III</span>
+        <span class="tab-name">Code</span>
+      </button>
+      <button class="stage-tab" data-stage="3">
+        <span class="tab-num">IV</span>
+        <span class="tab-name">Test</span>
+      </button>
+      <button class="stage-tab" data-stage="4">
+        <span class="tab-num">V</span>
+        <span class="tab-name">Tips</span>
+      </button>
+    </nav>
+
+    <div class="framework-body">
+      <p class="stage-text visible" data-stage="0">
+        Before any equation or code appears, every algorithm is explained the way you'd describe it to a good friend. <strong>If you can't say it in plain English, you don't understand it yet.</strong> The intuition is the foundation everything else is built on.
+      </p>
+      <p class="stage-text" data-stage="1">
+        Equations arrive only after the intuition is solid. Each symbol is named, motivated, and connected to the English you already understand. You'll see <strong>why the formula is shaped the way it is</strong> — not just how to apply it.
+      </p>
+      <p class="stage-text" data-stage="2">
+        Every algorithm is implemented from scratch using <span class="mono-inline">NumPy</span> — no ML library shortcuts. <strong>Writing it yourself is the proof that you understand it.</strong> No <span class="mono-inline">sklearn</span> black box, no magic. Just what you already know, translated directly into code.
+      </p>
+      <p class="stage-text" data-stage="3">
+        Your implementation runs against <span class="mono-inline">Scikit-learn</span> or <span class="mono-inline">PyTorch</span>  on real datasets. <strong>If the outputs match, you built it correctly.</strong> If they don't, the diff tells you exactly what you missed. Trust, but verify.
+      </p>
+      <p class="stage-text" data-stage="4">
+        Every chapter closes with field notes: where the algorithm shines, where it struggles and <strong>which hyperparameters actually matter</strong>. The gap between understanding and applying well in practice.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ALGORITHMS -->
+<section class="algo-section" id="algorithms">
+  <div class="section-head">
+    <span class="section-head-label">Ten algorithms, built from scratch</span>
+    <span class="section-head-stage" id="algo-stage-label"></span>
+  </div>
+  <div class="algo-list">
+    <div class="algo-item"><span class="algo-n">01</span>Linear Regression</div>
+    <div class="algo-item"><span class="algo-n">02</span>Logistic Regression</div>
+    <div class="algo-item"><span class="algo-n">03</span>Regularization</div>
+    <div class="algo-item"><span class="algo-n">04</span>K-Nearest Neighbors</div>
+    <div class="algo-item"><span class="algo-n">05</span>Naïve Bayes</div>
+    <div class="algo-item"><span class="algo-n">06</span>Decision Tree</div>
+    <div class="algo-item"><span class="algo-n">07</span>Random Forest</div>
+    <div class="algo-item"><span class="algo-n">08</span>Gradient Boosting</div>
+    <div class="algo-item"><span class="algo-n">09</span>XGBoost</div>
+    <div class="algo-item"><span class="algo-n">10</span>Neural Network</div>
+  </div>
+</section>
+
+<!-- PDF VIEWER -->
+<section class="viewer-section" id="sample">
+  <div class="viewer-head">
+    <span class="viewer-head-title">Sample Chapters</span>
+    <span class="viewer-head-meta">Free Preview</span>
+  </div>
+
+  <div class="pdf-wrap" id="pdf-wrap">
+    <div class="pdf-bar">
+      <select class="pdf-select" id="toc-sel">
+        <option value="" disabled selected>Jump to chapter</option>
+        <option value="1">Cover</option>
+        <option value="10">Fundamentals of ML</option>
+        <option value="19">Introduction to Data</option>
+        <option value="27">The Math You Actually Need for ML</option>
+        <option value="77">Continue Reading</option>
+      </select>
+
+      <div class="pdf-divider"></div>
+
+      <button class="pdf-btn" id="btn-prev" disabled>← Prev</button>
+      <span class="pdf-page-info" id="page-info">— / —</span>
+      <button class="pdf-btn" id="btn-next" disabled>Next →</button>
+
+      <div class="pdf-divider"></div>
+
+      <select class="pdf-select" id="zoom-sel" style="max-width:80px;">
+        <option value="0.6">60%</option>
+        <option value="0.8">80%</option>
+        <option value="1.0" selected>100%</option>
+        <option value="1.25">125%</option>
+        <option value="1.5">150%</option>
+        <option value="2.0">200%</option>
+      </select>
+
+      <div class="pdf-spacer"></div>
+      <button class="pdf-btn" id="btn-fullscreen">[ ] Full view</button>
+    </div>
+
+    <div id="pdf-canvas-wrap" tabindex="0" aria-label="PDF viewer — use arrow keys to turn pages">
+      <div class="pdf-loading" id="pdf-loading">
+        <div class="pdf-loading-bar"></div>
+        <span>loading sample.pdf</span>
+      </div>
+      <canvas id="pdf-canvas" style="display:none"></canvas>
+    </div>
+  </div>
+  <p class="pdf-hint">
+  <kbd>←</kbd> <kbd>→</kbd> turn pages &nbsp;·&nbsp; click viewer to focus
+</p>
+</section>
+</main>
+
+<footer>
+  <span class="footer-copy">Machine Learning From Scratch &nbsp;©&nbsp;2026</span>
+</footer>
+
+<script type="module">
+import * as pdfjsLib from 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs';
+
+/* ── PDF viewer ── */
+const canvas    = document.getElementById('pdf-canvas');
+const ctx       = canvas.getContext('2d');
+const loading   = document.getElementById('pdf-loading');
+const btnPrev   = document.getElementById('btn-prev');
+const btnNext   = document.getElementById('btn-next');
+const pageInfo  = document.getElementById('page-info');
+const zoomSel   = document.getElementById('zoom-sel');
+const tocSel    = document.getElementById('toc-sel');
+const btnFull   = document.getElementById('btn-fullscreen');
+const pdfWrap   = document.getElementById('pdf-wrap');
+const canvasWrap = document.getElementById('pdf-canvas-wrap');
+
+let pdf = null, page = 1, scale = 1.0;
+
+async function render(n) {
+  page = Math.max(1, Math.min(n, pdf?.numPages ?? 1));
+  const p = await pdf.getPage(page);
+  const vp = p.getViewport({ scale });
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width  = Math.floor(vp.width  * dpr);
+  canvas.height = Math.floor(vp.height * dpr);
+  canvas.style.width  = Math.floor(vp.width)  + 'px';
+  canvas.style.height = Math.floor(vp.height) + 'px';
+
+  const transform = dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null;
+  await p.render({ canvasContext: ctx, transform, viewport: vp }).promise;
+
+  pageInfo.textContent = `${page} / ${pdf.numPages}`;
+  btnPrev.disabled = page <= 1;
+  btnNext.disabled = page >= pdf.numPages;
+
+  // Sync TOC dropdown if page matches an entry
+  const match = Array.from(tocSel.options).find(o => parseInt(o.value) === page);
+  if (match) tocSel.value = match.value;
+}
+
+(async () => {
+  try {
+    pdf = await pdfjsLib.getDocument('sample.pdf').promise;
+    loading.style.display = 'none';
+    canvas.style.display = 'block';
+    canvasWrap.focus();
+    await render(1);
+  } catch(e) {
+    loading.innerHTML = '<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">sample.pdf not found — place it alongside index.html</span>';
+  }
+})();
+
+btnPrev.addEventListener('click', () => render(page - 1));
+btnNext.addEventListener('click', () => render(page + 1));
+zoomSel.addEventListener('change', () => { scale = parseFloat(zoomSel.value); if (pdf) render(page); });
+tocSel.addEventListener('change', () => {
+  const t = parseInt(tocSel.value);
+  if (!isNaN(t) && pdf) render(t);
+});
+
+// ── Keyboard navigation (arrow keys + zoom) ──
+canvasWrap.addEventListener('keydown', e => {
+  if (!pdf) return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); render(page + 1); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); render(page - 1); }
+  if (e.key === '+' || e.key === '=') {
+    e.preventDefault();
+    const opts = Array.from(zoomSel.options);
+    const idx  = opts.findIndex(o => parseFloat(o.value) === scale);
+    if (idx < opts.length - 1) { scale = parseFloat(opts[idx + 1].value); zoomSel.value = scale; render(page); }
+  }
+  if (e.key === '-') {
+    e.preventDefault();
+    const opts = Array.from(zoomSel.options);
+    const idx  = opts.findIndex(o => parseFloat(o.value) === scale);
+    if (idx > 0) { scale = parseFloat(opts[idx - 1].value); zoomSel.value = scale; render(page); }
+  }
+});
+
+// Also catch arrow keys at document level when viewer is in view
+document.addEventListener('keydown', e => {
+  if (!pdf) return;
+  if (document.activeElement === canvasWrap) return; // already handled above
+  // Only fire if viewer section is roughly in viewport
+  const viewer = document.getElementById('sample');
+  const rect   = viewer.getBoundingClientRect();
+  if (rect.top < window.innerHeight && rect.bottom > 0) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); render(page + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); render(page - 1); }
+  }
+});
+
+// Click viewer to focus it for keyboard nav
+canvasWrap.addEventListener('click', () => canvasWrap.focus());
+
+// ── Fullscreen ──
+btnFull.addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    pdfWrap.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+});
+document.addEventListener('fullscreenchange', () => {
+  btnFull.textContent = document.fullscreenElement ? '[×] Exit view' : '[ ] Full view';
+});
+
+/* ── Framework tabs → algo section label ── */
+const stageNames = ['Intuition', 'Formalization', 'Implementation', 'Testing', 'Tips'];
+const tabs       = document.querySelectorAll('.stage-tab');
+const texts      = document.querySelectorAll('.stage-text');
+const algoLabel  = document.getElementById('algo-stage-label');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const i = +tab.dataset.stage;
+    tabs.forEach(t => t.classList.remove('active'));
+    texts.forEach(t => t.classList.remove('visible'));
+    tab.classList.add('active');
+    document.querySelector(`.stage-text[data-stage="${i}"]`).classList.add('visible');
+
+    // Bridge: show which stage in the algo list label
+    algoLabel.textContent = `Stage ${['I','II','III','IV','V'][i]}: ${stageNames[i]}`;
+    algoLabel.classList.add('visible');
+  });
+});
+</script>
+
+</body>
+</html>
