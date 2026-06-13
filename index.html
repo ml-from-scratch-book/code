@@ -742,13 +742,13 @@ async function render(n) {
   page = Math.max(1, Math.min(n, pdf?.numPages ?? 1));
   const p = await pdf.getPage(page);
 
-  // NEW: Auto-scale for mobile devices on initial render
   let currentScale = scale;
-  if (window.innerWidth <= 600 && scale === 1.0) {
+  
+  if (window.innerWidth <= 600) {
     const unscaledVp = p.getViewport({ scale: 1.0 });
-    // Calculate width minus the CSS padding (approx 32px on mobile)
-    const availableWidth = document.getElementById('pdf-canvas-wrap').clientWidth - 32; 
-    currentScale = availableWidth / unscaledVp.width;
+    // We target 95% of the container width to keep it from hitting the edges
+    const containerWidth = document.getElementById('pdf-canvas-wrap').clientWidth;
+    currentScale = (containerWidth * 0.95) / unscaledVp.width;
   }
 
   const vp = p.getViewport({ scale });
