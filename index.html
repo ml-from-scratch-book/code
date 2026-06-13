@@ -755,7 +755,6 @@ async function render(n) {
     pdf = await pdfjsLib.getDocument('sample.pdf').promise;
     loading.style.display = 'none';
     canvas.style.display = 'block';
-    canvasWrap.focus();
     await render(1);
   } catch(e) {
     loading.innerHTML = '<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;">sample.pdf not found — place it alongside index.html</span>';
