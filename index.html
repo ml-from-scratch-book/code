@@ -452,14 +452,14 @@ h1 span { font-weight: 400; }
   background: var(--bg-mute);
   min-height: 550px;
   max-height: 750px;
-  overflow-y: auto;
+  overflow: auto;
   outline: none;
 }
 .pdf-wrap:fullscreen #pdf-canvas-wrap { flex:1; max-height:none; }
 
 #pdf-canvas {
   display: block;
-  max-width: 100%;
+  margin: 0 auto;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
@@ -540,6 +540,16 @@ footer {
   .stage-tab:nth-child(4),
   .stage-tab:nth-child(5) { border-bottom:none; }
   .pdf-spacer { display:none; }
+
+  #pdf-canvas-wrap {
+    justify-content: flex-start; /* Crucial: Prevents the left side of the PDF from being clipped */
+    padding: 1.5rem 1rem; /* Reduces padding to give more screen real estate to the text */
+  }
+
+  .pdf-bar {
+    justify-content: center; /* Wraps the zoom/page controls nicely */
+  }
+
 }
 @media (prefers-reduced-motion: reduce) {
   .pdf-loading-bar::after { animation:none; left:0; width:100%; opacity:0.4; }
@@ -731,6 +741,16 @@ let pdf = null, page = 1, scale = 1.0;
 async function render(n) {
   page = Math.max(1, Math.min(n, pdf?.numPages ?? 1));
   const p = await pdf.getPage(page);
+
+  // NEW: Auto-scale for mobile devices on initial render
+  let currentScale = scale;
+  if (window.innerWidth <= 600 && scale === 1.0) {
+    const unscaledVp = p.getViewport({ scale: 1.0 });
+    // Calculate width minus the CSS padding (approx 32px on mobile)
+    const availableWidth = document.getElementById('pdf-canvas-wrap').clientWidth - 32; 
+    currentScale = availableWidth / unscaledVp.width;
+  }
+
   const vp = p.getViewport({ scale });
   const dpr = window.devicePixelRatio || 1;
 
