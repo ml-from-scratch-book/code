@@ -741,19 +741,12 @@ async function render(n) {
   page = Math.max(1, Math.min(n, pdf?.numPages ?? 1));
   const p = await pdf.getPage(page);
 
-// UPDATED MOBILE SCALE LOGIC
-  let currentScale = scale;
-  
- if (window.innerWidth <= 600) {
-    const unscaledVp = p.getViewport({ scale: 1.0 });
-    const containerWidth = document.getElementById('pdf-canvas-wrap').clientWidth;
-    
-    // Use 0.85 to give it a professional "cushion" from the screen edges
-    // This scales based on the container, not a hardcoded 0.8
-    currentScale = (containerWidth * 0.85) / unscaledVp.width;
-  }
+  const containerWidth = canvasWrap.clientWidth;
+  const unscaledVp = p.getViewport({ scale: 1.0 });
+  const autoScale = (containerWidth * 0.92) / unscaledVp.width;
+  const effectiveScale = window.innerWidth <= 768 ? Math.min(scale, autoScale) : scale;
 
-  const vp = p.getViewport({ scale });
+  const vp = p.getViewport({ scale: effectiveScale })
   const dpr = window.devicePixelRatio || 1;
 
   canvas.width  = Math.floor(vp.width  * dpr);
