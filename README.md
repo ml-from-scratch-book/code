@@ -23,10 +23,10 @@ Companion code repository for [Machine Learning From Scratch](https://a.co/d/0gh
  
 | Chapter | Content/Code |
 |---------|------|
-| Setup | [Overview](#setup) |
-| Fundamentals of ML | [Overview](#fundamentals-of-ml) |
-| Introduction to Data | [Overview](#introduction-to-data) |
-| The Math You Actually Need for ML | [Overview](#the-math-you-actually-need-for-ml) |
+| Setup | [Overview](#setup) 🔓 Free |
+| Fundamentals of ML | [Overview](#fundamentals-of-ml) 🔓 Free |
+| Introduction to Data | [Overview](#introduction-to-data) 🔓 Free |
+| The Math You Actually Need for ML | [Overview](#the-math-you-actually-need-for-ml) 🔓 Free |
 | Data Preparation | [Overview](#data-preparation) <br/> [data_loader.py](data_loader.py) |
 | Linear Regression | [01_linear_regression.ipynb](01_linear_regression.ipynb) |
 | Logistic Regression | [02_logistic_regression.ipynb](02_logistic_regression.ipynb) |
